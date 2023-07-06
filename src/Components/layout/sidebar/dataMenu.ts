@@ -12,11 +12,6 @@ export const dataMenu = [
     icon: Icons.Newspaper,
   },
   {
-    title: "Сообщения",
-    link: "/messages",
-    icon: Icons.Message,
-  },
-  {
     title: "Друзья",
     link: "/friends",
     icon: Icons.Group,

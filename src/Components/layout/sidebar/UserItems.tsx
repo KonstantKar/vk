@@ -10,6 +10,38 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { QuestionAnswer } from "@mui/icons-material";
+
+const user = [
+  {
+    id: 1,
+    avatar:
+      "https://sun9-23.userapi.com/impf/c837133/v837133872/4d349/KdItTAc9kaE.jpg?size=693x954&quality=96&sign=cca2937461677b93fafae748a2419dff&type=album",
+    name: "Константин Караманов",
+    online: true,
+  },
+  {
+    id: 2,
+    avatar:
+      "https://sun9-19.userapi.com/impg/sihL_uWpklL4-zhhgk7tSy7f8ErHl2DeiWlpyQ/Y4dJQTLoEEk.jpg?size=700x871&quality=95&sign=a53c271452c7c59367379203475093d2&type=album",
+    name: "Марс Амурович",
+    online: false,
+  },
+  {
+    id: 3,
+    avatar:
+      "https://sun9-72.userapi.com/impg/FYeqg8cfU94bCxNk4Awhq65t5jdC3Q-ebLM99Q/zBpMagIkTgE.jpg?size=853x1279&quality=96&sign=17c3635f4bdafe0f149407b4ebcaa826&type=album",
+    name: "Зима Зимитрович",
+    online: false,
+  },
+  {
+    id: 4,
+    avatar:
+      "https://sun9-65.userapi.com/impg/6Mb0YRhyXFQdG3pYY4JQQIq_z1b5XJqcHDMV4A/mYP_dcljICY.jpg?size=1521x1901&quality=96&sign=a9364be9d6a760c79482a4a42efe2d9a&type=album",
+    name: "Егорченко Петренко",
+    online: false,
+  },
+];
+
 const UserItems: FC = () => {
   const navigate = useNavigate();
 
@@ -22,101 +54,46 @@ const UserItems: FC = () => {
         variant="outlined"
         sx={{ padding: 1, backgroundColor: "#F1F7FA", marginBottom: 3 }}
       >
-        <Link
-          to={"/profile"}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            color: "#111",
-            marginBottom: 12,
-          }}
-        >
-          <Avatar>
-            <img
-              src="https://codequest.ru/images/default/avatar.jpg"
-              alt=""
-              width="36"
-              height="36"
-            />
-          </Avatar>
-          <span style={{ fontSize: 14, marginLeft: 10 }}>Дмитрия Лыжина</span>
-          <Box
-            sx={{
-              backgroundColor: "#4FB14F",
-              width: 12,
-              height: 12,
-              border: "1px solid #F1F7FA",
-              borderRadius: 50,
-              marginLeft: 1,
-            }}
-          />
-        </Link>
-        <Link
-          to={"/profile"}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            color: "#111",
-            marginBottom: 12,
-          }}
-        >
-          <Avatar>
-            <img
-              src="https://codequest.ru/images/default/avatar.jpg"
-              alt=""
-              width="36"
-              height="36"
-            />
-          </Avatar>
-          <span style={{ fontSize: 14, marginLeft: 10 }}>Дмитрия Лыжина</span>
-          <Box
-            sx={{
-              backgroundColor: "#4FB14F",
-              width: 12,
-              height: 12,
-              border: "1px solid #F1F7FA",
-              borderRadius: 50,
-              marginLeft: 1,
-            }}
-          />
-        </Link>
-        <Link
-          to={"/profile"}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            color: "#111",
-            marginBottom: 12,
-          }}
-        >
-          <Avatar>
-            <img
-              src="https://codequest.ru/images/default/avatar.jpg"
-              alt=""
-              width="36"
-              height="36"
-            />
-          </Avatar>
-          <span style={{ fontSize: 14, marginLeft: 10 }}>Дмитрия Лыжина</span>
-          <Box
-            sx={{
-              backgroundColor: "#4FB14F",
-              width: 12,
-              height: 12,
-              border: "1px solid #F1F7FA",
-              borderRadius: 50,
-              marginLeft: 1,
-            }}
-          />
-        </Link>
         <List>
-          <ListItemButton>
-            <ListItemButton onClick={handleClick}>
-              <ListItemIcon>
-                <QuestionAnswer />
-              </ListItemIcon>
-              <ListItemText primary="Сообщения" />
-            </ListItemButton>
+          <ListItemButton onClick={handleClick}>
+            <ListItemText primary="Лучшие друзья" />
+          </ListItemButton>
+        </List>
+        {user.map((el) => (
+          <Link
+            key={el.id}
+            to={`/profile/${el.id}`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              color: "#111",
+              marginBottom: 12,
+            }}
+          >
+            <Avatar>
+              <img src={el.avatar} alt="" width="48" height="48" />
+            </Avatar>
+            <span style={{ fontSize: 14, marginLeft: 10 }}>{el.name}</span>
+            {el.online && (
+              <Box
+                sx={{
+                  backgroundColor: "#4FB14F",
+                  width: 12,
+                  height: 12,
+                  border: "1px solid #F1F7FA",
+                  borderRadius: 50,
+                  marginLeft: 1,
+                }}
+              />
+            )}
+          </Link>
+        ))}
+        <List>
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>
+              <QuestionAnswer />
+            </ListItemIcon>
+            <ListItemText primary="Сообщения" />
           </ListItemButton>
         </List>
       </Card>
