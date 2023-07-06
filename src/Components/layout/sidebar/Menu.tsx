@@ -6,9 +6,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { QuestionAnswer } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { dataMenu } from "./dataMenu";
+import { dataMenu } from "./SidebarData/dataMenu";
 
 const Menu: FC = () => {
   const navigate = useNavigate();

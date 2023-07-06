@@ -1,11 +1,13 @@
-import React from "react";
-import { Button } from "@mui/material";
-const Home = () => {
+import React, { FC, useState } from "react";
+import { Box } from "@mui/material";
+import AddPost from "./AddPost";
+import { Post } from "../../../types";
+const Home: FC = () => {
+  const [post, setPost] = useState<Post[]>([]);
   return (
-    <div>
-      Home
-      <Button variant="contained">Hello World</Button>
-    </div>
+    <Box>
+      <AddPost setPost={setPost} />
+    </Box>
   );
 };
 

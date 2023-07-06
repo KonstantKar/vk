@@ -1,6 +1,7 @@
 //Берём все экспорты и обьединяем в Icons
 import * as Icons from "@mui/icons-material";
-export const dataMenu = [
+import { MenuItem } from "../../../../types";
+export const dataMenu: MenuItem[] = [
   {
     title: "Моя страница",
     link: "/profile",
