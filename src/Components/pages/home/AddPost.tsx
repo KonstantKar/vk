@@ -7,20 +7,23 @@ import { Post, TypeSetState } from "../../../types";
 import { dataUsers } from "../../layout/sidebar/SidebarData/dataUsers";
 
 interface AddPostProps {
-  setPost: TypeSetState<Post[]>;
+  setPosts: TypeSetState<Post[]>;
 }
 
-const AddPost: FC<AddPostProps> = ({ setPost }) => {
+const AddPost: FC<AddPostProps> = ({ setPosts }) => {
   const [content, setContent] = useState("");
-  const addPostFunction = () => {
-    setPost((prev) => [
-      ...prev,
-      {
-        author: dataUsers[0],
-        content: content,
-        createdData: "5 минут назад",
-      },
-    ]);
+  const addPostFunction = (e: any) => {
+    if (e.key === "Enter") {
+      setPosts((prev) => [
+        {
+          author: dataUsers[0],
+          content: content,
+          createdData: "5 минут назад",
+        },
+        ...prev,
+      ]);
+      setContent("");
+    }
   };
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -28,7 +31,7 @@ const AddPost: FC<AddPostProps> = ({ setPost }) => {
         label="Добавь пост!"
         variant="filled"
         sx={{ width: "100%" }}
-        onKeyPress={addPostFunction}
+        onKeyDown={addPostFunction}
         onChange={(e) => setContent(e.target.value)}
         value={content}
       />

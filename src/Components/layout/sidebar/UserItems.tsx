@@ -29,10 +29,10 @@ const UserItems: FC = () => {
             <ListItemText primary="Лучшие друзья" />
           </ListItemButton>
         </List>
-        {dataUsers.map((el) => (
+        {dataUsers.map((user) => (
           <Link
-            key={el.id}
-            to={`/profile/${el.id}`}
+            key={user.id}
+            to={`/profile/${user.id}`}
             style={{
               display: "flex",
               alignItems: "center",
@@ -41,10 +41,10 @@ const UserItems: FC = () => {
             }}
           >
             <Avatar>
-              <img src={el.avatar} alt="" width="48" height="48" />
+              <img src={user.avatar} alt="" width="48" height="48" />
             </Avatar>
-            <span style={{ fontSize: 14, marginLeft: 10 }}>{el.name}</span>
-            {el.online && (
+            <span style={{ fontSize: 14, marginLeft: 10 }}>{user.name}</span>
+            {user.online && (
               <Box
                 sx={{
                   backgroundColor: "#4FB14F",
