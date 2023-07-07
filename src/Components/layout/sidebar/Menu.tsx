@@ -13,7 +13,10 @@ const Menu: FC = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <Card variant="outlined" sx={{ padding: 1, backgroundColor: "#F1F7FA" }}>
+      <Card
+        variant="outlined"
+        sx={{ padding: 1, backgroundColor: "#F1F7FA", marginBottom: 3 }}
+      >
         <List>
           {dataMenu.map((el) => (
             <ListItemButton key={el.link}>

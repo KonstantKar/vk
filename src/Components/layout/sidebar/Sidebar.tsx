@@ -4,8 +4,8 @@ import Menu from "./Menu";
 const Sidebar: FC = () => {
   return (
     <div>
-      <UserItems />
       <Menu />
+      <UserItems />
     </div>
   );
 };
