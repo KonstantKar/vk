@@ -2,6 +2,7 @@ import Profile from "../pages/Profile/Profile";
 import Home from "../pages/Home/Home";
 import Messages from "../pages/Messages/Messages";
 import Friends from "../pages/Friends/Friends";
+import Auth from "../pages/Auth/Auth";
 export const routesList = [
   {
     path: "/",
@@ -46,9 +47,9 @@ export const routesList = [
     auth: true,
   },
   {
-    path: "auth",
+    path: "/auth",
     exact: true,
-    component: Home,
+    component: Auth,
     auth: false,
   },
 ];
