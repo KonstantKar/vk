@@ -1,9 +1,18 @@
-import Home from "../pages/home/Home";
+import Profile from "../pages/Profile/Profile";
+import Home from "../pages/Home/Home";
+import Messages from "../pages/Messages/Messages";
+import Friends from "../pages/Friends/Friends";
 export const routesList = [
   {
     path: "/",
     exact: true,
     component: Home,
+    auth: true,
+  },
+  {
+    path: "/profile",
+    exact: false,
+    component: Profile,
     auth: true,
   },
   {
@@ -13,15 +22,21 @@ export const routesList = [
     auth: true,
   },
   {
-    path: "messages",
+    path: "/messages",
     exact: true,
-    component: Home,
+    component: Messages,
     auth: true,
   },
   {
     path: "message/:id",
     exact: false,
     component: Home,
+    auth: true,
+  },
+  {
+    path: "/friends",
+    exact: false,
+    component: Friends,
     auth: true,
   },
   {

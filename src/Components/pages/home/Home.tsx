@@ -1,7 +1,9 @@
 import React, { FC, useState } from "react";
 import { Box } from "@mui/material";
-import AddPost from "./AddPost";
+
 import { Post } from "../../../types";
+
+import AddPost from "./AddPost";
 import Posts from "./Posts";
 import { initialPosts } from "./initialPosts";
 const Home: FC = () => {
