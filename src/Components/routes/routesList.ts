@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home";
 import Messages from "../pages/Messages/Messages";
 import Friends from "../pages/Friends/Friends";
 import Auth from "../pages/Auth/Auth";
+import Conversation from "../pages/Messages/Conversation";
 export const routesList = [
   {
     path: "/",
@@ -32,6 +33,12 @@ export const routesList = [
     path: "message/:id",
     exact: false,
     component: Home,
+    auth: true,
+  },
+  {
+    path: "conversation",
+    exact: false,
+    component: Conversation,
     auth: true,
   },
   {
