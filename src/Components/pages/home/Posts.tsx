@@ -38,7 +38,7 @@ const Posts: FC<PostsProps> = ({ posts }) => {
           <p>{post.content}</p>
 
           {post.images && post.images.length > 0 && (
-            <ImageList variant="quilted" cols={2} gap={10}>
+            <ImageList cols={2} gap={12}>
               {post.images.map((item) => (
                 <ImageListItem key={item.image}>
                   <img src={item.image} alt={""} loading="lazy" />
