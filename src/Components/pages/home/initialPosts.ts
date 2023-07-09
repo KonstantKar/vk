@@ -3,7 +3,7 @@ import { Post } from "../../../types";
 export const initialPosts: Post[] = [
   {
     author: {
-      id: 5,
+      id: "5",
       avatar:
         "https://sun9-74.userapi.com/impg/75L8OIlWl2M7MHbRIkmf8lAl4VBHTo5MHYIZkw/RaEvQ11rV54.jpg?size=960x960&quality=95&sign=1a3076d302d85671c425be61a8be36b7&type=album",
 
@@ -14,7 +14,7 @@ export const initialPosts: Post[] = [
   },
   {
     author: {
-      id: 5,
+      id: "5",
       avatar:
         "https://sun9-74.userapi.com/impg/75L8OIlWl2M7MHbRIkmf8lAl4VBHTo5MHYIZkw/RaEvQ11rV54.jpg?size=960x960&quality=95&sign=1a3076d302d85671c425be61a8be36b7&type=album",
 
