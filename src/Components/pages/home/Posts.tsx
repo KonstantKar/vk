@@ -1,39 +1,55 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Post } from "../../../types";
 import { Avatar, Box, ImageList, ImageListItem } from "@mui/material";
 import { Link } from "react-router-dom";
+import { onSnapshot, collection } from "firebase/firestore";
+import useAuth from "../../providers/useAuth";
+import { initialPosts } from "./initialPosts";
 
-interface PostsProps {
-  posts: Post[];
-}
+const Posts: FC = () => {
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const { db } = useAuth();
+  const [error, setError] = useState("");
 
-const Posts: FC<PostsProps> = ({ posts }) => {
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "posts"), (doc) => {
+      doc.forEach((d: any) => {
+        setPosts((prev: any) => [d.data(), ...prev]);
+      });
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
+
   return (
     <div>
       {posts.map((post) => (
         <Box sx={{ border: "1px solid #e2e2e2", padding: 2, marginTop: 3 }}>
-          <Link
-            key={post.author.id}
-            to={`/profile/${post.author.id}`}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              color: "#111",
-              marginBottom: 12,
-            }}
-          >
-            <Avatar>
-              <img src={post.author.avatar} alt="" width="48" height="48" />
-            </Avatar>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 14, marginLeft: 10 }}>
-                {post.author.name}
-              </span>{" "}
-              <span style={{ fontSize: 14, marginLeft: 10 }}>
-                {post.createdData}
-              </span>
-            </div>
-          </Link>
+          {post.author && (
+            <Link
+              key={post.author.id}
+              to={`/profile/${post.author.id}`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                color: "#111",
+                marginBottom: 12,
+              }}
+            >
+              <Avatar>
+                <img src={post.author.avatar} alt="" width="48" height="48" />
+              </Avatar>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <span style={{ fontSize: 14, marginLeft: 10 }}>
+                  {post.author.name}
+                </span>{" "}
+                <span style={{ fontSize: 14, marginLeft: 10 }}>
+                  {post.createdData}
+                </span>
+              </div>
+            </Link>
+          )}
 
           <p>{post.content}</p>
 

@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { User } from "../../types";
 import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
+import { Firestore, getFirestore } from "firebase/firestore";
 import { dataUsers } from "../layout/sidebar/SidebarData/dataUsers";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ interface AuthContext {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>> | null;
   auth: Auth;
+  db: Firestore;
 }
 
 export const AuthContext = createContext<AuthContext>({} as AuthContext);
@@ -24,6 +26,8 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null as User | null);
 
   const auth = getAuth();
+  //получение экземпляра Firestore
+  const db = getFirestore();
 
   useEffect(() => {
     const unListen = onAuthStateChanged(auth, (authUser) => {
@@ -44,7 +48,7 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, user, setUser }}>
+    <AuthContext.Provider value={{ auth, user, setUser, db }}>
       {children}
     </AuthContext.Provider>
   );
