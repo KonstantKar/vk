@@ -5,12 +5,15 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import useAuth from "../../providers/useAuth";
 import { useNavigate } from "react-router-dom";
+
 interface userData {
   email: string;
   password: string;
+  name: string;
 }
 
 const Auth: FC = () => {
@@ -20,6 +23,7 @@ const Auth: FC = () => {
   const [userData, setUserData] = useState<userData>({
     email: "",
     password: "",
+    name: "",
   });
   const [error, setError] = useState("");
 
@@ -29,11 +33,14 @@ const Auth: FC = () => {
     //Регистрация или вход
     if (isRegForm) {
       try {
-        await createUserWithEmailAndPassword(
+        const res = await createUserWithEmailAndPassword(
           auth,
           userData.email,
           userData.password
         );
+        await updateProfile(res.user, {
+          displayName: userData.name,
+        });
       } catch (error: any) {
         error.message && setError(error.message);
       }
@@ -53,6 +60,7 @@ const Auth: FC = () => {
     setUserData({
       email: "",
       password: "",
+      name: "",
     });
   };
 
@@ -75,6 +83,16 @@ const Auth: FC = () => {
           alignItems: "center",
         }}
       >
+        <TextField
+          type="name"
+          label="Логин"
+          variant="outlined"
+          value={userData.name}
+          //Благодаря спред оператору копируем изначальную email а потом её перезаписываем
+          onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+          sx={{ marginBottom: 2 }}
+          required
+        />
         <TextField
           type="email"
           label="Почта"

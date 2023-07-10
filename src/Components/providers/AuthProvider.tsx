@@ -31,7 +31,7 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setUser({
           id: authUser.uid,
           avatar: dataUsers[0].avatar,
-          name: authUser?.displayName || "",
+          name: authUser.displayName || "",
         });
       else {
         setUser(null);

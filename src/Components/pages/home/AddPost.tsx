@@ -5,6 +5,7 @@ import QueueMusicOutlinedIcon from "@mui/icons-material/QueueMusicOutlined";
 import CameraOutlinedIcon from "@mui/icons-material/CameraOutlined";
 import { Post, TypeSetState } from "../../../types";
 import { dataUsers } from "../../layout/sidebar/SidebarData/dataUsers";
+import useAuth from "../../providers/useAuth";
 
 interface AddPostProps {
   setPosts: TypeSetState<Post[]>;
@@ -12,11 +13,12 @@ interface AddPostProps {
 
 const AddPost: FC<AddPostProps> = ({ setPosts }) => {
   const [content, setContent] = useState("");
+  const { user } = useAuth();
   const addPostFunction = (e: any) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && user) {
       setPosts((prev) => [
         {
-          author: dataUsers[0],
+          author: user,
           content: content,
           createdData: "5 минут назад",
         },
