@@ -3,7 +3,6 @@ import { Alert, Box, TextField } from "@mui/material";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import QueueMusicOutlinedIcon from "@mui/icons-material/QueueMusicOutlined";
 import CameraOutlinedIcon from "@mui/icons-material/CameraOutlined";
-import { Post, TypeSetState } from "../../../types";
 import useAuth from "../../providers/useAuth";
 import { addDoc, collection } from "firebase/firestore";
 

@@ -9,7 +9,6 @@ import { initialPosts } from "./initialPosts";
 const Posts: FC = () => {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const { db } = useAuth();
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "posts"), (doc) => {
@@ -24,8 +23,11 @@ const Posts: FC = () => {
 
   return (
     <div>
-      {posts.map((post) => (
-        <Box sx={{ border: "1px solid #e2e2e2", padding: 2, marginTop: 3 }}>
+      {posts.map((post, index) => (
+        <Box
+          sx={{ border: "1px solid #e2e2e2", padding: 2, marginTop: 3 }}
+          key={`Post-${index}`}
+        >
           {post.author && (
             <Link
               key={post.author.id}
@@ -50,9 +52,7 @@ const Posts: FC = () => {
               </div>
             </Link>
           )}
-
           <p>{post.content}</p>
-
           {post.images && post.images.length > 0 && (
             <ImageList cols={2} gap={12}>
               {post.images.map((item) => (
