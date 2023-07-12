@@ -1,7 +1,7 @@
 import Profile from "../pages/Profile/Profile";
 import Home from "../pages/Home/Home";
 import Messages from "../pages/Messages/Messages";
-import Friends from "../pages/Friends/FriendsList";
+import Friends from "../pages/Friends/Friends";
 import Auth from "../pages/Auth/Auth";
 import Conversation from "../pages/Messages/Conversation";
 export const routesList = [
