@@ -63,7 +63,7 @@ const Profile: FC = () => {
 
             {editMode ? (
               <form onSubmit={handleFormSubmit}>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h4" component="div">
                   {user?.name}
                 </Typography>
                 <TextField
@@ -85,7 +85,7 @@ const Profile: FC = () => {
                   flexDirection: "column",
                 }}
               >
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h4" component="div">
                   {user?.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

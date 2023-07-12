@@ -21,3 +21,9 @@ export interface MenuItem {
   link: string;
   icon: any;
 }
+
+export interface Message {
+  userId: string;
+  message: string;
+  user: User;
+}
