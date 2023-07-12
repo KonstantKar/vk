@@ -14,6 +14,7 @@ export interface User {
   avatar: string;
   name: string;
   online?: boolean;
+  status?: string;
 }
 
 export interface MenuItem {
