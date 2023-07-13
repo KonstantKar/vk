@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { QuestionAnswer } from "@mui/icons-material";
-import { dataUsers } from "./SidebarData/dataUsers";
 import { collection, onSnapshot } from "firebase/firestore";
 import { User } from "../../../types";
 import useAuth from "../../providers/useAuth";
@@ -60,7 +59,15 @@ const UserItems: FC = () => {
             }}
           >
             <Avatar>
-              <img src={sf.avatar} alt="" width="48" height="48" />
+              <img
+                src={
+                  sf.avatar ||
+                  "https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png"
+                }
+                alt=""
+                width="48"
+                height="48"
+              />
             </Avatar>
             <Typography style={{ fontSize: 18, marginLeft: 10 }}>
               {sf.name}

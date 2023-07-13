@@ -15,6 +15,7 @@ export interface User {
   name: string;
   online?: boolean;
   status?: string;
+  background?: string;
 }
 
 export interface MenuItem {

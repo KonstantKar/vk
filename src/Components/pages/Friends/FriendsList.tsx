@@ -9,12 +9,14 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Call, Message, PersonAdd } from "@mui/icons-material";
+import { AccountBox, Call, Message } from "@mui/icons-material";
 import { collection, onSnapshot } from "firebase/firestore";
 import useAuth from "../../providers/useAuth";
 import { User } from "../../../types";
+import { useNavigate } from "react-router-dom";
 
 const FriendList: FC = () => {
+  const navigate = useNavigate();
   const [friends, setFriends] = useState<User[]>([]);
   const { db } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -58,18 +60,6 @@ const FriendList: FC = () => {
                   xs={7}
                   sx={{ display: "flex", justifyContent: "flex-start" }}
                 >
-                  <Grid
-                    item
-                    xs={1}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <PersonAdd sx={{ fontSize: 25, padding: "5px" }} />
-                    <Message sx={{ fontSize: 25, padding: "5px" }} />
-                    <Call sx={{ fontSize: 25, padding: "5px" }} />
-                  </Grid>
                   <CardContent>
                     <Box sx={{ display: "flex" }}>
                       <Avatar
@@ -94,6 +84,20 @@ const FriendList: FC = () => {
                         <Typography variant="body2" color="text.secondary">
                           {fr?.status || "Статус отсутствует"}
                         </Typography>
+                        <Grid
+                          item
+                          xs={1}
+                          sx={{
+                            display: "flex",
+                          }}
+                        >
+                          <AccountBox
+                            sx={{ fontSize: 25, padding: "5px" }}
+                            onClick={() => navigate(fr.id)}
+                          />
+                          <Message sx={{ fontSize: 25, padding: "5px" }} />
+                          <Call sx={{ fontSize: 25, padding: "5px" }} />
+                        </Grid>
                       </Box>
                     </Box>
                   </CardContent>
