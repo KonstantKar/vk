@@ -50,7 +50,7 @@ const UserItems: FC = () => {
         {firstFourFriends.map((sf) => (
           <Link
             key={sf.id}
-            to={`/profile/${sf.id}`}
+            to={`/messages/${sf.id}`}
             style={{
               display: "flex",
               alignItems: "center",
