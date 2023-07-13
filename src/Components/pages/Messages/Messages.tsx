@@ -1,6 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
 import useAuth from "../../providers/useAuth";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
 import { Message } from "../../../types";
 import {
   Alert,
@@ -18,6 +25,7 @@ import {
   Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import { v4 as uuidv4 } from "uuid";
 
 const Messages: FC = () => {
   const { user, db } = useAuth();
@@ -27,11 +35,14 @@ const Messages: FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "messages"), (snapshot) => {
-      const newMessages = snapshot.docs.map((doc) => doc.data() as Message);
-      setMessages(newMessages);
-      setLoading(false);
-    });
+    const unsub = onSnapshot(
+      query(collection(db, "messages"), orderBy("timestamp")),
+      (snapshot) => {
+        const newMessages = snapshot.docs.map((doc) => doc.data() as Message);
+        setMessages(newMessages);
+        setLoading(false);
+      }
+    );
     return () => {
       unsub();
     };
@@ -42,6 +53,7 @@ const Messages: FC = () => {
       await addDoc(collection(db, "messages"), {
         user: user,
         message: message,
+        timestamp: serverTimestamp(), //в db отправляется время написания сообщения,и в useEffect сообщения фильтруются по времени
       });
     } catch (e: any) {
       setError(e);
@@ -87,10 +99,11 @@ const Messages: FC = () => {
           </Grid>
           <Grid container component={Paper}>
             <Grid item xs={12}>
-              <List style={{ height: "64vh", flexDirection: "column-reverse" }}>
-                {messages.map((msg, idx) => {
+              <List style={{ height: "64vh" }}>
+                {messages.map((msg) => {
+                  const messageKey = uuidv4();
                   return (
-                    <ListItem key={idx}>
+                    <ListItem key={messageKey}>
                       <Grid
                         container
                         sx={
