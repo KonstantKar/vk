@@ -30,3 +30,10 @@ export interface Message {
   message: string;
   user: User;
 }
+
+export interface IConversation {
+  id: string;
+  userId: string;
+  message: string;
+  user: User;
+}

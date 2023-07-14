@@ -31,13 +31,7 @@ export const routesList = [
     auth: true,
   },
   {
-    path: "message/:id",
-    exact: false,
-    component: Home,
-    auth: true,
-  },
-  {
-    path: "conversation",
+    path: "/messages/:id",
     exact: false,
     component: Conversation,
     auth: true,
@@ -49,7 +43,7 @@ export const routesList = [
     auth: true,
   },
   {
-    path: "friends/:id",
+    path: "/friends/:id",
     exact: false,
     component: FriendProfile,
     auth: true,
