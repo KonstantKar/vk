@@ -4,7 +4,7 @@ import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import QueueMusicOutlinedIcon from "@mui/icons-material/QueueMusicOutlined";
 import CameraOutlinedIcon from "@mui/icons-material/CameraOutlined";
 import useAuth from "../../providers/useAuth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const AddPost: FC = () => {
   const [error, setError] = useState("");
@@ -18,6 +18,7 @@ const AddPost: FC = () => {
           author: user,
           content: content,
           createdData: "10 минут назад",
+          timestamp: serverTimestamp(),
         });
       } catch (e: any) {
         setError(e);

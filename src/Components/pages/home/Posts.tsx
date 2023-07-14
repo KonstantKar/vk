@@ -7,9 +7,10 @@ import {
   CircularProgress,
   ImageList,
   ImageListItem,
+  List,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { onSnapshot, collection } from "firebase/firestore";
+import { onSnapshot, collection, query, orderBy } from "firebase/firestore";
 import useAuth from "../../providers/useAuth";
 
 const Posts: FC = () => {
@@ -18,11 +19,14 @@ const Posts: FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
-      const newPosts = snapshot.docs.map((doc) => doc.data() as Post);
-      setPosts(newPosts);
-      setLoading(false);
-    });
+    const unsub = onSnapshot(
+      query(collection(db, "posts"), orderBy("timestamp", "desc")),
+      (snapshot) => {
+        const newPosts = snapshot.docs.map((doc) => doc.data() as Post);
+        setPosts(newPosts);
+        setLoading(false);
+      }
+    );
     return () => {
       unsub();
     };
@@ -44,10 +48,14 @@ const Posts: FC = () => {
           <CircularProgress />
         </Card>
       ) : (
-        <div>
+        <List>
           {posts.map((post, index) => (
             <Box
-              sx={{ border: "1px solid #e2e2e2", padding: 2, marginTop: 3 }}
+              sx={{
+                border: "1px solid #e2e2e2",
+                padding: 2,
+                marginTop: 3,
+              }}
               key={`Post-${index}`}
             >
               {post.author && (
@@ -74,7 +82,7 @@ const Posts: FC = () => {
                       {post.author.name}
                     </span>{" "}
                     <span style={{ fontSize: 14, marginLeft: 10 }}>
-                      {post.createdData}
+                      {post.timestamp?.toDate().toLocaleString()}
                     </span>
                   </div>
                 </Link>
@@ -91,7 +99,7 @@ const Posts: FC = () => {
               )}
             </Box>
           ))}
-        </div>
+        </List>
       )}
     </>
   );

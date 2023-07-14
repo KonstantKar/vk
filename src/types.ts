@@ -7,6 +7,7 @@ export interface Post {
   createdData: string;
   content: string;
   images?: { image: string }[]; // Обновите эту строку
+  timestamp?: any;
 }
 
 export interface User {
