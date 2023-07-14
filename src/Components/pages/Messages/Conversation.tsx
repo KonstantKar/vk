@@ -31,11 +31,26 @@ import { useParams } from "react-router-dom";
 
 const Conversation: FC = () => {
   const { user, db } = useAuth();
+  const [selectedFriend, setSelectedFriend] = useState(Object);
   const [error, setError] = useState("");
   const [messages, setMessages] = useState<IConversation[]>([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const { id: conversationId } = useParams();
+
+  //Получения друга по URL
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "friends"), (snapshot) => {
+      const Friends = snapshot.docs.map((doc) => doc.data());
+      const selectedFriend = Friends.find(
+        (friend) => friend.id === conversationId
+      ); // Фильтрация по ID
+      setSelectedFriend(selectedFriend);
+    });
+    return () => {
+      unsub();
+    };
+  }, [conversationId]);
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -98,14 +113,20 @@ const Conversation: FC = () => {
         >
           <Grid container>
             <Grid item xs={12}>
-              <Typography variant="h5" className="header-message">
-                Сообщения
-              </Typography>
+              <div style={{ display: "flex" }}>
+                <Typography variant="h5" className="header-message">
+                  Диалог с {selectedFriend.name}
+                </Typography>
+                <Avatar
+                  sx={{ marginLeft: 2, marginBottom: 1 }}
+                  src={selectedFriend.avatar}
+                />
+              </div>
             </Grid>
           </Grid>
           <Grid container component={Paper}>
             <Grid item xs={12}>
-              <List style={{ height: "64vh" }}>
+              <List style={{ height: "64vh", overflow: "auto" }}>
                 {messages.map((msg) => {
                   const messageKey = uuidv4();
                   return (

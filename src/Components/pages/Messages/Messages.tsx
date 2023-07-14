@@ -99,7 +99,7 @@ const Messages: FC = () => {
           </Grid>
           <Grid container component={Paper}>
             <Grid item xs={12}>
-              <List style={{ height: "64vh" }}>
+              <List style={{ height: "64vh", overflow: "auto" }}>
                 {messages.map((msg) => {
                   const messageKey = uuidv4();
                   return (
