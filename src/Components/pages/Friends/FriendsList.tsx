@@ -14,6 +14,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import useAuth from "../../providers/useAuth";
 import { User } from "../../../types";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const FriendList: FC = () => {
   const navigate = useNavigate();
@@ -95,7 +96,12 @@ const FriendList: FC = () => {
                             sx={{ fontSize: 25, padding: "5px" }}
                             onClick={() => navigate(fr.id)}
                           />
-                          <Message sx={{ fontSize: 25, padding: "5px" }} />
+
+                          <Message
+                            sx={{ fontSize: 25, padding: "5px" }}
+                            onClick={() => navigate(`messages/${fr.id}`)}
+                          />
+
                           <Call sx={{ fontSize: 25, padding: "5px" }} />
                         </Grid>
                       </Box>

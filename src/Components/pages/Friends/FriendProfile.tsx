@@ -15,6 +15,7 @@ import React, { FC, useEffect, useState } from "react";
 import useAuth from "../../providers/useAuth";
 import { useParams } from "react-router-dom";
 import { AccountBox, Call, Message } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const FriendProfile: FC = () => {
   const { db } = useAuth();
@@ -77,7 +78,9 @@ const FriendProfile: FC = () => {
                   display: "flex",
                 }}
               >
-                <Message sx={{ fontSize: 25, padding: "5px" }} />
+                <Link to={`/messages/${selectedFriend.id}`}>
+                  <Message sx={{ fontSize: 25, padding: "5px" }} />
+                </Link>
                 <Call sx={{ fontSize: 25, padding: "5px" }} />
               </Grid>
             </Box>

@@ -49,6 +49,12 @@ export const routesList = [
     auth: true,
   },
   {
+    path: "/friends/messages/:id",
+    exact: false,
+    component: Conversation,
+    auth: true,
+  },
+  {
     path: "/auth",
     exact: true,
     component: Auth,
