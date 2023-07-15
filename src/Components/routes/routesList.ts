@@ -5,6 +5,7 @@ import Friends from "../pages/Friends/Friends";
 import FriendProfile from "../pages/Friends/FriendProfile";
 import Auth from "../pages/Auth/Auth";
 import Conversation from "../pages/Messages/Conversation";
+import HackerNews from "../pages/hackerNews/HackerNews";
 export const routesList = [
   {
     path: "/",
@@ -58,6 +59,12 @@ export const routesList = [
     path: "/auth",
     exact: true,
     component: Auth,
+    auth: false,
+  },
+  {
+    path: "/hackersNews",
+    exact: true,
+    component: HackerNews,
     auth: false,
   },
 ];

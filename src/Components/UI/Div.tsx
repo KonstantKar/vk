@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Card } from "@mui/material";
 import React, { FC, ReactNode } from "react";
 
 interface DivProps {
@@ -7,9 +7,12 @@ interface DivProps {
 
 const Div: FC<DivProps> = ({ children }) => {
   return (
-    <Box sx={{ border: "1px solid #e2e2e2", padding: 2, marginTop: 3 }}>
+    <Card
+      variant="outlined"
+      sx={{ padding: 2, backgroundColor: "#F1F7FA", marginBottom: 3 }}
+    >
       {children}
-    </Box>
+    </Card>
   );
 };
 

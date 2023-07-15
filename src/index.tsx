@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import Routes from "./Components/routes/Routes";
 import * as firebase from "firebase/app";
 import AuthProvider from "./Components/providers/AuthProvider";
+import { Provider } from "react-redux";
+import store from "./redux/Store";
 
 // Initialize Firebase
 firebase.initializeApp({
@@ -25,9 +27,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <Layout>
-          <Routes />
-        </Layout>
+        <Provider store={store}>
+          <Layout>
+            <Routes />
+          </Layout>
+        </Provider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -19,8 +19,8 @@ export const dataMenu: MenuItem[] = [
     icon: Icons.Group,
   },
   {
-    title: "Музыка",
-    link: "/music",
-    icon: Icons.MusicNote,
+    title: "Хакерские новости",
+    link: "/hackersNews",
+    icon: Icons.Announcement,
   },
 ];
