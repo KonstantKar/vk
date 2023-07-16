@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface HackerNewsSlice {
+export interface HackerNewsSlice {
   news: News[];
   loading: boolean;
+  selectedNews: News | null;
 }
 
-interface News {
+export interface News {
   id: number;
   deleted: boolean;
   type: string;
@@ -27,6 +28,7 @@ interface News {
 const initialState: HackerNewsSlice = {
   news: [],
   loading: false,
+  selectedNews: null,
 };
 
 const newsSlice = createSlice({
@@ -40,10 +42,14 @@ const newsSlice = createSlice({
       state.loading = false;
       state.news = action.payload;
     },
+    getSelectedNews(state, action) {
+      state.selectedNews = action.payload;
+    },
   },
 });
 
-export const { getHackerNewsLoading, getHackerNews } = newsSlice.actions;
+export const { getHackerNewsLoading, getHackerNews, getSelectedNews } =
+  newsSlice.actions;
 
 export const getAxiosNews = () => async (dispatch: any) => {
   dispatch(getHackerNewsLoading());
@@ -62,5 +68,19 @@ export const getAxiosNews = () => async (dispatch: any) => {
     console.log(error);
   }
 };
+
+export const getAxiosNewsItem =
+  (selectedNewsId: string) => async (dispatch: any) => {
+    dispatch(getHackerNewsLoading());
+    try {
+      const response = await axios.get(
+        `https://hacker-news.firebaseio.com/v0/item/${selectedNewsId}.json`
+      );
+      const selectedNewsIds = response.data;
+      dispatch(getSelectedNews(selectedNewsIds));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export default newsSlice.reducer;

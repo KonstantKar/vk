@@ -8,15 +8,18 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { ThumbUpAltOutlined } from "@mui/icons-material";
 import UpdateIcon from "@mui/icons-material/Update";
+import { useNavigate } from "react-router-dom";
+import CommentIcon from "@mui/icons-material/Comment";
 
 const HackerNews: FC = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
     useDispatch();
   const news = useSelector((state: RootState) => state.news.news);
   const loading = useSelector((state: RootState) => state.news.loading);
-  const sortedNews = [...news].sort((a, b) => b.time - a.time); //Сортировка по дате, самые новые вверху
-  const [refreshInterval, setRefreshInterval] = useState(60000); // 60 000 мсек = 1 минута
+  const [refreshInterval, setRefreshInterval] = useState(60000);
+  const navigate = useNavigate();
 
+  const sortedNews = [...news].sort((a, b) => b.time - a.time); //Сортировка по дате, самые новые вверху
   useEffect(() => {
     dispatch(getAxiosNews());
 
@@ -29,11 +32,17 @@ const HackerNews: FC = () => {
     return () => clearInterval(intervalId);
   }, [dispatch, refreshInterval]);
 
+  const handleRefreshClick = () => {
+    dispatch(getAxiosNews());
+  };
+
   return (
     <>
       {loading ? (
         <Div>
-          <CircularProgress />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
         </Div>
       ) : (
         <>
@@ -45,7 +54,7 @@ const HackerNews: FC = () => {
                 alignItems: "center",
                 cursor: "pointer",
               }}
-              onClick={() => dispatch(getAxiosNews())}
+              onClick={handleRefreshClick}
             >
               Обновить новостную ленту
               <UpdateIcon />
@@ -88,10 +97,22 @@ const HackerNews: FC = () => {
                   </Box>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <li style={{ paddingBottom: "50px" }}>{story.title}</li>
-                  <Typography variant="caption">
-                    <ThumbUpAltOutlined /> {story.score}
-                  </Typography>
+                  <li
+                    onClick={() => navigate(`/hackersNews/${story.id}`)}
+                    style={{ paddingBottom: "50px", cursor: "pointer" }}
+                  >
+                    {story.title}
+                  </li>
+                  <Box sx={{ display: "flex" }}>
+                    <Typography variant="caption">
+                      <ThumbUpAltOutlined />
+                      {story.score}
+                    </Typography>
+                    <Typography variant="caption">
+                      <CommentIcon />
+                      {story.descendants}
+                    </Typography>
+                  </Box>
                   <Divider />
                 </Box>
               </Box>

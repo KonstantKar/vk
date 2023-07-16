@@ -6,6 +6,7 @@ import FriendProfile from "../pages/Friends/FriendProfile";
 import Auth from "../pages/Auth/Auth";
 import Conversation from "../pages/Messages/Conversation";
 import HackerNews from "../pages/hackerNews/HackerNews";
+import HackerNewsItem from "../pages/hackerNews/HackerNewsItem";
 export const routesList = [
   {
     path: "/",
@@ -65,6 +66,12 @@ export const routesList = [
     path: "/hackersNews",
     exact: true,
     component: HackerNews,
+    auth: false,
+  },
+  {
+    path: "/hackersNews/:id",
+    exact: false,
+    component: HackerNewsItem,
     auth: false,
   },
 ];
