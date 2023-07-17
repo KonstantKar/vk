@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Div from "../../UI/Div";
 import { RootState } from "../../../redux/Store";
-import { getAxiosNews } from "../../../redux/hackerNewsSlice";
+import { getNews } from "../../../redux/hackerNewsSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { ThumbUpAltOutlined } from "@mui/icons-material";
@@ -21,11 +21,11 @@ const HackerNews: FC = () => {
 
   const sortedNews = [...news].sort((a, b) => b.time - a.time); //Сортировка по дате, самые новые вверху
   useEffect(() => {
-    dispatch(getAxiosNews());
+    dispatch(getNews());
 
     // Установка интервала обновления данных
     const intervalId = setInterval(() => {
-      dispatch(getAxiosNews());
+      dispatch(getNews());
     }, refreshInterval);
 
     // Очистка интервала при размонтировании компонента
@@ -33,18 +33,12 @@ const HackerNews: FC = () => {
   }, [dispatch, refreshInterval]);
 
   const handleRefreshClick = () => {
-    dispatch(getAxiosNews());
+    dispatch(getNews());
   };
 
   return (
     <>
-      {loading ? (
-        <Div>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <CircularProgress />
-          </Box>
-        </Div>
-      ) : (
+      {!loading ? (
         <>
           <Div>
             <Box
@@ -119,6 +113,12 @@ const HackerNews: FC = () => {
             ))}
           </Div>
         </>
+      ) : (
+        <Div>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
+        </Div>
       )}
     </>
   );
