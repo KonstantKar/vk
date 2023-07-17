@@ -1,5 +1,5 @@
 import { ThumbUpAltOutlined } from "@mui/icons-material";
-import { Box, Divider, Paper, Typography } from "@mui/material";
+import { Box, Divider, Paper, Typography, Link } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
@@ -13,32 +13,37 @@ interface NewsDetailsProps {
 const NewsDetails: FC<NewsDetailsProps> = ({ selectedNews }) => {
   const navigate = useNavigate();
   return (
-    <Box
-      component={Paper}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <Paper elevation={3} sx={{ padding: "16px", marginBottom: "32px" }}>
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          marginBottom: "32px",
+          marginBottom: "16px",
         }}
       >
         <Box onClick={() => navigate("/hackersNews")}>
           <ArrowBackIcon />
         </Box>
         <Box sx={{ flex: 1 }} />
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography>
-            Дата публикации:
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            Дата публикации:{" "}
             {new Date(selectedNews.time * 1000).toLocaleString()}
           </Typography>
-          <a href={selectedNews.url} target="_blank" rel="noopener noreferrer">
-            "Ссылка на новость!"
-          </a>
+          <Link
+            href={selectedNews.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="body2"
+          >
+            Ссылка на новость
+          </Link>
         </Box>
       </Box>
       <Box
@@ -46,30 +51,39 @@ const NewsDetails: FC<NewsDetailsProps> = ({ selectedNews }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          marginBottom: "16px",
         }}
       >
         <Typography variant="h5">{selectedNews.title}</Typography>
       </Box>
-      <Box
-        sx={{
-          margin: 4,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <Box sx={{ margin: 4 }}>
         <Typography>
           {selectedNews.text ||
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipi.Lorem isectetur adipi"}
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Typography variant="caption">
-          <ThumbUpAltOutlined />
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          marginTop: "8px",
+        }}
+      >
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          <ThumbUpAltOutlined sx={{ marginRight: "4px" }} />
           {selectedNews.score}
         </Typography>
+        <Typography
+          variant="body2"
+          sx={{ color: "text.secondary", marginLeft: "16px" }}
+        >
+          <CommentIcon sx={{ marginRight: "4px" }} />
+          {selectedNews.descendants}
+        </Typography>
       </Box>
-      <Divider />
-    </Box>
+    </Paper>
   );
 };
 

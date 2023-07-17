@@ -1,4 +1,11 @@
-import { Box, CircularProgress, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Divider,
+  Typography,
+  IconButton,
+  Link,
+} from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Div from "../../UI/Div";
@@ -47,11 +54,14 @@ const HackerNews: FC = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 cursor: "pointer",
+                "&:hover": {
+                  color: "primary.main",
+                },
               }}
               onClick={handleRefreshClick}
             >
               Обновить новостную ленту
-              <UpdateIcon />
+              <UpdateIcon sx={{ ml: 1 }} />
             </Box>
           </Div>
           <Div>
@@ -72,38 +82,57 @@ const HackerNews: FC = () => {
                       flexDirection: "column",
                     }}
                   >
-                    <Typography variant="caption">Автор:{story.by}</Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      Автор: {story.by}
+                    </Typography>
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="caption">
-                        Дата публикации:
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        Дата публикации:{" "}
                         {new Date(story.time * 1000).toLocaleString()}
                       </Typography>
-                      <a
+                      <Link
                         href={story.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        variant="body2"
                       >
-                        "Ссылка на новость!"
-                      </a>
+                        Ссылка на новость
+                      </Link>
                     </Box>
                   </Box>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <li
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      cursor: "pointer",
+                      "&:hover": { color: "primary.main" },
+                    }}
                     onClick={() => navigate(`/hackersNews/${story.id}`)}
-                    style={{ paddingBottom: "50px", cursor: "pointer" }}
                   >
                     {story.title}
-                  </li>
-                  <Box sx={{ display: "flex" }}>
-                    <Typography variant="caption">
-                      <ThumbUpAltOutlined />
+                  </Typography>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      <ThumbUpAltOutlined sx={{ mr: 0.5 }} />
                       {story.score}
                     </Typography>
-                    <Typography variant="caption">
-                      <CommentIcon />
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary", ml: 1 }}
+                    >
+                      <CommentIcon sx={{ mr: 0.5 }} />
                       {story.descendants}
                     </Typography>
                   </Box>

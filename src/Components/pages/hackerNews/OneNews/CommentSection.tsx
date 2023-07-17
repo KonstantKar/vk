@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography, IconButton, Stack } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import { FC } from "react";
 import { NewsComment } from "../../../../redux/hackerNewsSlice";
@@ -24,14 +24,14 @@ const CommentSection: FC<NewsDetailsProps> = ({
               {comment.by}
             </Typography>
             <Typography>{comment.text}</Typography>
-            <Box sx={{ display: "flex" }}>
-              <CommentIcon
-                onClick={() => handleOpenInsideComments(comment.id)}
-              />
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <IconButton onClick={() => handleOpenInsideComments(comment.id)}>
+                <CommentIcon />
+              </IconButton>
               <Typography>
                 {Array.isArray(comment.kids) ? comment.kids.length : 0}
               </Typography>
-            </Box>
+            </Stack>
             <Divider />
             {/* Отображаем вложенные комментарии, если они есть */}
             {selectedInsideComments[comment.id] &&
