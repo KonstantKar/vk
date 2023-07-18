@@ -8,6 +8,7 @@ import Conversation from "../pages/Messages/Conversation";
 import HackerNews from "../pages/hackerNews/HackerNews";
 import OneNews from "../pages/hackerNews/OneNews/OneNews";
 import Shop from "../pages/Shop/Shop";
+import Cart from "../pages/Shop/ShopComponents/Cart";
 
 export const routesList = [
   {
@@ -80,6 +81,12 @@ export const routesList = [
     path: "/shop/",
     exact: true,
     component: Shop,
+    auth: false,
+  },
+  {
+    path: "/shop/cart",
+    exact: true,
+    component: Cart,
     auth: false,
   },
 ];

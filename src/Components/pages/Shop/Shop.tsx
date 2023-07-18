@@ -1,24 +1,26 @@
 import React, { FC, useState, useEffect } from "react";
 import Div from "../../UI/Div";
+import { Badge, Box, IconButton } from "@mui/material";
 import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { collection, onSnapshot } from "firebase/firestore";
+  collection,
+  doc,
+  onSnapshot,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import useAuth from "../../providers/useAuth";
-import AddShopItem from "./AddShopItem";
+import AddShopItem from "./ShopComponents/AddShopItem";
 import { ShopItem } from "../../../types";
+import Cart from "./ShopComponents/Cart"; // Импортируем компонент корзины
+import { ShoppingBag } from "@mui/icons-material";
+import OneShopItem from "./ShopComponents/OneShopItem";
+import { useNavigate } from "react-router-dom";
 
 const Shop: FC = () => {
   const { db } = useAuth();
+  const navigate = useNavigate();
   const [shopItems, setShopItems] = useState<ShopItem[]>([]);
+  const [cartItems, setCartItems] = useState<ShopItem[]>([]); // Состояние для хранения выбранных товаров в корзине
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "ShopItems"), (snapshot) => {
@@ -29,9 +31,41 @@ const Shop: FC = () => {
       unsub();
     };
   }, []);
+
+  useEffect(() => {
+    const cartItemsRef = collection(db, "CartItems");
+    const unsubscribe = onSnapshot(cartItemsRef, (snapshot) => {
+      const newItems = snapshot.docs.map((doc) => doc.data() as ShopItem);
+      setCartItems(newItems);
+    });
+
+    return () => unsubscribe();
+  }, [db]);
+
+  // Функция для добавления товара в корзину
+  const addToCart = async (shopItem: ShopItem) => {
+    try {
+      // Добавляем shopItem в коллекцию "CartItems" в Firebase
+      const cartItemRef = doc(collection(db, "CartItems"));
+      await setDoc(cartItemRef, {
+        ...shopItem,
+        timestamp: serverTimestamp(),
+      });
+      console.log("Товар успешно добавлен в корзину!");
+    } catch (error) {
+      console.error("Ошибка при добавлении товара в корзину:", error);
+    }
+  };
+
   return (
     <Div>
-      <AddShopItem />
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Badge badgeContent={cartItems.length} color="primary">
+          <IconButton onClick={() => navigate("/Shop/Cart")}>
+            <ShoppingBag />
+          </IconButton>
+        </Badge>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -41,43 +75,11 @@ const Shop: FC = () => {
         }}
       >
         {shopItems.map((shopItem) => (
-          <Card sx={{ minWidth: 350, maxWidth: 350 }}>
-            <CardActionArea>
-              <Box sx={{ height: 350 }}>
-                <CardMedia
-                  component="img"
-                  image={shopItem.shopItemPhoto}
-                  alt=""
-                  sx={{ height: "100%", width: "100%", objectFit: "cover" }}
-                />
-              </Box>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {shopItem.shopItemName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {shopItem.shopItemDescription}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "10px  ",
-                }}
-              >
-                <Typography variant="body2" color="text.secondary">
-                  Цена:{shopItem.shopItemCash} рублей
-                </Typography>
-                <Button size="small" color="primary">
-                  Добавить в корзину
-                </Button>
-              </Box>
-            </CardActions>
-          </Card>
+          <OneShopItem shopItem={shopItem} addToCart={addToCart} />
         ))}
+      </Box>
+      <Box sx={{ marginTop: 2 }}>
+        <AddShopItem />
       </Box>
     </Div>
   );

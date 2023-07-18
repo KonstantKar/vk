@@ -40,7 +40,8 @@ export interface IConversation {
 
 //Магазин
 export interface ShopItem {
-  shopItemCash: string;
+  id: string;
+  shopItemCash: number;
   shopItemDescription: string;
   shopItemName: string;
   shopItemPhoto: string;

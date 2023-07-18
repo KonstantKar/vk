@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { FC, useState } from "react";
-import useAuth from "../../providers/useAuth";
+import useAuth from "../../../providers/useAuth";
 
 const AddShopItem: FC = () => {
   const [error, setError] = useState("");

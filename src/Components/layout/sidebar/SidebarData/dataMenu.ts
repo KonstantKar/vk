@@ -25,7 +25,7 @@ export const dataMenu: MenuItem[] = [
   },
   {
     title: "Магазин",
-    link: "/Shop",
+    link: "/shop",
     icon: AddShoppingCartIcon,
   },
 ];
