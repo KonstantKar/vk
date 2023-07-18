@@ -37,3 +37,12 @@ export interface IConversation {
   message: string;
   user: User;
 }
+
+//Магазин
+export interface ShopItem {
+  shopItemCash: string;
+  shopItemDescription: string;
+  shopItemName: string;
+  shopItemPhoto: string;
+  timestamp: any;
+}

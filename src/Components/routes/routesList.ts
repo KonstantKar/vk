@@ -7,6 +7,8 @@ import Auth from "../pages/Auth/Auth";
 import Conversation from "../pages/Messages/Conversation";
 import HackerNews from "../pages/hackerNews/HackerNews";
 import OneNews from "../pages/hackerNews/OneNews/OneNews";
+import Shop from "../pages/Shop/Shop";
+
 export const routesList = [
   {
     path: "/",
@@ -72,6 +74,12 @@ export const routesList = [
     path: "/hackersNews/:id",
     exact: false,
     component: OneNews,
+    auth: false,
+  },
+  {
+    path: "/shop/",
+    exact: true,
+    component: Shop,
     auth: false,
   },
 ];

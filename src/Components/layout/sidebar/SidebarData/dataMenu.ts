@@ -1,7 +1,7 @@
 //Берём все экспорты и обьединяем в Icons
 import * as Icons from "@mui/icons-material";
 import { MenuItem } from "../../../../types";
-import { dataUsers } from "./dataUsers";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 export const dataMenu: MenuItem[] = [
   {
     title: "Моя страница",
@@ -22,5 +22,10 @@ export const dataMenu: MenuItem[] = [
     title: "Хакерские новости",
     link: "/hackersNews",
     icon: Icons.Announcement,
+  },
+  {
+    title: "Магазин",
+    link: "/Shop",
+    icon: AddShoppingCartIcon,
   },
 ];
