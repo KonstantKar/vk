@@ -6,6 +6,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
@@ -79,9 +80,10 @@ const FriendProfile: FC = () => {
                 }}
               >
                 <Link to={`/messages/${selectedFriend.id}`}>
-                  <Message sx={{ fontSize: 25, padding: "5px" }} />
+                  <IconButton>
+                    <Message sx={{ fontSize: 25, padding: "5px" }} />
+                  </IconButton>
                 </Link>
-                <Call sx={{ fontSize: 25, padding: "5px" }} />
               </Grid>
             </Box>
           </Box>

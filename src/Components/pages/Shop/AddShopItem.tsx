@@ -28,7 +28,7 @@ const AddShopItem: FC = () => {
     setShopItemPhoto("");
   };
   return (
-    <Box sx={{ display: "flex", marginBottom: 2 }}>
+    <Box sx={{ display: "flex", marginBottom: 2, justifyContent: "center" }}>
       <TextField
         type="name"
         label="Название"

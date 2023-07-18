@@ -7,6 +7,7 @@ import {
   CircularProgress,
   Divider,
   Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { AccountBox, Call, Message } from "@mui/icons-material";
@@ -92,17 +93,21 @@ const FriendList: FC = () => {
                             display: "flex",
                           }}
                         >
-                          <AccountBox
-                            sx={{ fontSize: 25, padding: "5px" }}
-                            onClick={() => navigate(fr.id)}
-                          />
-
-                          <Message
-                            sx={{ fontSize: 25, padding: "5px" }}
-                            onClick={() => navigate(`messages/${fr.id}`)}
-                          />
-
-                          <Call sx={{ fontSize: 25, padding: "5px" }} />
+                          <IconButton>
+                            <AccountBox
+                              sx={{ fontSize: 25, padding: "5px" }}
+                              onClick={() => navigate(fr.id)}
+                            />
+                          </IconButton>
+                          <IconButton>
+                            <Message
+                              sx={{ fontSize: 25, padding: "5px" }}
+                              onClick={() => navigate(`messages/${fr.id}`)}
+                            />
+                          </IconButton>
+                          <IconButton>
+                            <Call sx={{ fontSize: 25, padding: "5px" }} />
+                          </IconButton>
                         </Grid>
                       </Box>
                     </Box>

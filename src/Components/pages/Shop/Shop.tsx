@@ -32,9 +32,16 @@ const Shop: FC = () => {
   return (
     <Div>
       <AddShopItem />
-      <Box sx={{ display: "flex", gap: "30px", flexWrap: "wrap" }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "30px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
         {shopItems.map((shopItem) => (
-          <Card sx={{ minWidth: 350 }}>
+          <Card sx={{ minWidth: 350, maxWidth: 350 }}>
             <CardActionArea>
               <Box sx={{ height: 350 }}>
                 <CardMedia
