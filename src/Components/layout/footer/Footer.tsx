@@ -3,7 +3,13 @@ import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { Announcement, Group, Home, Newspaper } from "@mui/icons-material";
+import {
+  Announcement,
+  Group,
+  Home,
+  MessageSharp,
+  Newspaper,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
@@ -42,6 +48,11 @@ const Footer = () => {
           label="Новости"
           icon={<Newspaper />}
           onClick={() => navigate("/")}
+        />
+        <BottomNavigationAction
+          label="Сообщения"
+          icon={<MessageSharp />}
+          onClick={() => navigate("/messages")}
         />
         <BottomNavigationAction
           label="Хакерские новости"

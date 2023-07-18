@@ -32,8 +32,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         </Grid>
       ) : (
         <>
-          <Grid container spacing={2} paddingX={5} marginTop={2}>
-            <Grid item md={isSmallScreen || !user ? 12 : 9}>
+          <Grid container paddingX={5}>
+            <Grid item md={isSmallScreen || !user ? 12 : 12}>
               {children}
             </Grid>
           </Grid>
