@@ -6,10 +6,12 @@ import {
   Divider,
   Typography,
   Button,
+  Box,
 } from "@mui/material";
 import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 import { ShopItem } from "../../../../types";
 import useAuth from "../../../providers/useAuth";
+import Div from "../../../UI/Div";
 
 const Cart: FC = () => {
   const { db } = useAuth();
@@ -46,23 +48,30 @@ const Cart: FC = () => {
   };
 
   return (
-    <div>
-      <Typography variant="h5">Корзина покупок</Typography>
-      <List>
-        {cartItems.map((item: ShopItem) => (
-          <div key={item.id}>
-            <ListItem>
-              <ListItemText secondary={`Цена: ${item.shopItemCash} рублей`} />
-              <Button color="secondary" onClick={() => removeFromCart(item.id)}>
-                Удалить
-              </Button>
-            </ListItem>
-            <Divider />
-          </div>
-        ))}
-      </List>
-      <Typography>Итого: {totalPrice} рублей</Typography>
-    </div>
+    <Div>
+      <Box>
+        <Typography variant="h5">Корзина покупок</Typography>
+        <List>
+          {cartItems.map((item: ShopItem) => (
+            <div key={item.id}>
+              <ListItem>
+                <ListItemText
+                  secondary={`${item.shopItemName}: ${item.shopItemCash} рублей`}
+                />
+                <Button
+                  color="secondary"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Удалить
+                </Button>
+              </ListItem>
+              <Divider />
+            </div>
+          ))}
+        </List>
+        <Typography>Итого: {totalPrice} рублей</Typography>
+      </Box>
+    </Div>
   );
 };
 
